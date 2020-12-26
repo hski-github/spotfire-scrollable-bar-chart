@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bar Chart</title>
+		<style>
+			td.label{white-space: nowrap; text-align: right;}
+			td.value{white-space: nowrap; text-align: right;}
+			td.bar{width: 100%;}
+			div.barsegment{height:1em; border: 1px solid; display: inline-block;}
+			div.deselected{opacity: 0.3;}
+			div.blue{background-color: blue; border-color: darkblue;}
+			div.green{background-color: green; border-color: darkgreen;}
+			div.red{background-color: red; border-color: darkred;}
+		</style>
+	</head>
+	<body>
+	
+		<h1>Bar Chart using DIV</h1>
+		<table style="width: 100%;">
+		  <tr>
+		  	<td class="label">Hi</td>
+		  	<td class="value">50 %</td>
+ 			<td class="bar"><div class="barsegment blue deselected" style="width: 50%;"></div></td>
+		  </tr>
+		  <tr>
+		  	<td class="label">Hallo</td>
+		  	<td class="value">100 %</td>
+		  	<td class="bar"><div class="barsegment blue deselected" style="width: 100%;"></div></td>
+		  </tr>
+		  <tr>
+		  	<td class="label">Guten Tag</td>
+		  	<td class="value">25 %</td>
+		  	<td class="bar"><div class="barsegment blue" style="width: 25%;"></div></td>
+		  </tr>
+		  <tr>
+		  	<td class="label">Ola</td>
+		  	<td class="value">15 %</td>
+		  	<td class="bar">
+		  		<div class="barsegment blue" style="width: 5%;"></div><div class="barsegment green" style="width: 5%;"></div><div class="barsegment red" style="width: 5%;"></div>
+		  	</td>
+		  </tr>
+		  <tr>
+		  	<td class="label">Very long category label but text not wrapped</td>
+		  	<td class="value">1 %</td>
+		  	<td class="bar"><div class="barsegment red" style="width: 1%;"></div></td>
+		  </tr>
+		</table>
+	
+	</body>
+</html>
