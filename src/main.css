@@ -6,11 +6,9 @@ table#tabularbarchart{
 	overflow: auto;
 	border-collapse: collapse;
 }
+
 td {
-	padding-top: 1px;
-	padding-bottom: 1px;
-	padding-left: 1px;
-	padding-right: 10px;
+	padding: 1px 10px 1px 1px;
 }
 
 td.label{
