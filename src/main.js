@@ -1,11 +1,3 @@
-/*
- * Copyright © 2020. TIBCO Software Inc.
- * This file is subject to the license terms contained
- * in the license file that is distributed with this file.
- */
-
-//@ts-check - Get type warnings from the TypeScript language server. Remove if not wanted.
-
 /**
  * Get access to the Spotfire Mod API by providing a callback to the initialize method.
  * @param {Spotfire.Mod} mod - mod api
@@ -58,11 +50,57 @@ Spotfire.initialize(async (mod) => {
         /**
          * Print out to document
          */
-        const container = document.querySelector("#mod-container");
-        container.textContent = `windowSize: ${windowSize.width}x${windowSize.height}\r\n`;
-        container.textContent += `should render: ${rows.length} rows\r\n`;
-        container.textContent += `${prop.name}: ${prop.value()}`;
+		var tabbarchart = document.querySelector("#tabularbarchart");
+		tabbarchart.innerHTML = "";
+		
+		var maxvalue = Number(0);
+		var minvalue = Number(0);
+		rows.forEach(function(row){
+			var barvalue = Number(row.continuous("Y").value());
+			if ( barvalue > maxvalue ) {
+				maxvalue = barvalue;
+			}
+			if ( barvalue < minvalue ){
+				minvalue = barvalue;
+			}
+		});
+		
+		rows.forEach(function(row){
+			
+			var labeltd = document.createElement("td");
+			labeltd.setAttribute("class", "label");
+			labeltd.textContent = row.categorical("X").formattedValue();
+			
+			var valuetd = document.createElement("td");
+			valuetd.setAttribute("class","value");
+			valuetd.textContent = row.continuous("Y").formattedValue();
+			
+			var bartd = document.createElement("td");
+			bartd.setAttribute("class","bar");
+			var barsvg = document.createElementNS("http://www.w3.org/2000/svg","svg");
+			barsvg.setAttribute("class","barsvg");
+			bartd.appendChild(barsvg);
+			
+			var barsegmentrect = document.createElementNS("http://www.w3.org/2000/svg","rect");
+			var barsegmentvalue = row.continuous("Y").value();
+			var barsegmentpercentage = Number(barsegmentvalue) / maxvalue * 100;
+			var barsegmentcolor = row.color().hexCode;
+			var style = "fill:" + barsegmentcolor + ";";
+			barsegmentrect.setAttribute("x", "0");
+			barsegmentrect.setAttribute("y", "0");
+			barsegmentrect.setAttribute("width", barsegmentpercentage + "%");
+			barsegmentrect.setAttribute("height", "1em");
+			barsegmentrect.setAttribute("style", style);
+			barsvg.appendChild(barsegmentrect);
 
+			var tr = document.createElement("tr");
+			tr.appendChild(labeltd);
+			tr.appendChild(valuetd);
+			tr.appendChild(bartd);
+			tabbarchart.appendChild(tr);
+			
+		});
+		
         /**
          * Signal that the mod is ready for export.
          */
