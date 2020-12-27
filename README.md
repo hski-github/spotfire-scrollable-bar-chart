@@ -12,6 +12,7 @@ As of now
 - No rendering of stacked bars
 - No hover with details about bar segment
 - Better names for X and Y axis
+- Individual icon 
 
 ## Prerequisites
 
