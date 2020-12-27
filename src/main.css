@@ -4,6 +4,13 @@ body{
 
 table#tabularbarchart{
 	overflow: auto;
+	border-collapse: collapse;
+}
+td {
+	padding-top: 1px;
+	padding-bottom: 1px;
+	padding-left: 1px;
+	padding-right: 10px;
 }
 
 td.label{
@@ -18,6 +25,9 @@ td.value{
 
 td.bar{
 	width: 100%;
+	min-width: 50px;
+	border-left: 1px solid lightgrey;
+	padding-left: 0px;
 }
 
 svg.barsvg{
