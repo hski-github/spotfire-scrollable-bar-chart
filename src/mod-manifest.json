@@ -23,7 +23,7 @@
             {
                 "name": "X",
                 "mode": "categorical",
-                "placement": "bottom",
+                "placement": "left",
                 "dropTarget": {
                     "icon": "XAxis3D",
                     "description": "Use {0} on the mod's X-axis"
@@ -32,7 +32,7 @@
             {
                 "name": "Y",
                 "mode": "continuous",
-                "placement": "left"
+                "placement": "bottom"
             }
         ]
     },
