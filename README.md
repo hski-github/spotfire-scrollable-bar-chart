@@ -8,11 +8,15 @@ All source code for the mod can be found in the `src` folder.
 
 As of now
 - Negative values are not correctly shown
-- No support for marking
 - No rendering of stacked bars
+- No support for marking
+- No sorting
+- No 100% bars 
 - No hover with details about bar segment
 - Better names for X and Y axis
 - Individual icon 
+- No support for error bars (currently no plan to enhance the mod in this direction)
+- No support for vertical bar chart (currently no plan to enhance the mod in this direction)
 
 ## Prerequisites
 
