@@ -2,6 +2,8 @@
 
 This is a Spotfire mod project to create a horizontal bar chart, which adds a scroll bar if more bars needs to be shown instead on decreasing the bar size.  
 
+![ScreenShot](/screenshots/screenshot-scrollable-vs-standard-bar-chart_thumbnail.png?raw=true)
+
 All source code for the mod can be found in the `src` folder.
 
 ## Known Limitations 
