@@ -14,6 +14,7 @@ As of now
 - No 100% bars 
 - No hover with details about bar segment
 - Better names for X and Y axis
+- No i18n of title, axis labels and description
 - Individual icon 
 - No support for error bars (currently no plan to enhance the mod in this direction)
 - No support for vertical bar chart (currently no plan to enhance the mod in this direction)
