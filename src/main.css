@@ -24,8 +24,6 @@ td.value{
 td.bar{
 	width: 100%;
 	min-width: 50px;
-	border-left: 1px solid lightgrey;
-	padding-left: 0px;
 }
 
 svg.barsvg{

@@ -113,8 +113,13 @@ Spotfire.initialize(async (mod) => {
 			rowstacked.forEach(function(row){
 				var barsegmentrect = document.createElementNS("http://www.w3.org/2000/svg","rect");
 				var barsegmentvalue = Number(row.continuous("Y").value());
-				var barsegmentx = maxvaluerowstacked / maxvalue * 100;
-				var barsegmentwidth = (barsegmentvalue) / maxvalue * 100;
+				if ( barsegmentvalue > 0){
+					var barsegmentx = (maxvaluerowstacked - minvalue) / minmaxvalue * 100;
+				}
+				else{
+					var barsegmentx = (Math.abs(minvalue) + minvaluerowstacked + barsegmentvalue) / minmaxvalue * 100;
+				}
+				var barsegmentwidth = Math.abs(barsegmentvalue) / minmaxvalue * 100;
 				var barsegmentcolor = row.color().hexCode;
 				var style = "fill:" + barsegmentcolor + ";";
 				barsegmentrect.setAttribute("x", barsegmentx + "%");
