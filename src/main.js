@@ -94,7 +94,8 @@ Spotfire.initialize(async (mod) => {
 		});
 
 		
-		rows.forEach(function(row){
+		rowsstacked.forEach(function(rowstacked){
+			rowstacked.forEach(function(row){
 			
 			var labeltd = document.createElement("td");
 			labeltd.setAttribute("class", "label");
@@ -128,6 +129,7 @@ Spotfire.initialize(async (mod) => {
 			tr.appendChild(bartd);
 			tabbarchart.appendChild(tr);
 			
+			});
 		});
 		
         /**
