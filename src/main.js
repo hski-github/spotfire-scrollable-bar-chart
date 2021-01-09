@@ -92,18 +92,14 @@ Spotfire.initialize(async (mod) => {
 				minvalue = minvaluerowstacked;
 			}
 		});
+		var minmaxvalue = maxvalue - minvalue;
 
 		
-		rowsstacked.forEach(function(rowstacked){
-			rowstacked.forEach(function(row){
+		rowsstacked.forEach(function(rowstacked, key){
 			
 			var labeltd = document.createElement("td");
 			labeltd.setAttribute("class", "label");
-			labeltd.textContent = row.categorical("X").formattedValue();
-			
-			var valuetd = document.createElement("td");
-			valuetd.setAttribute("class","value");
-			valuetd.textContent = row.continuous("Y").formattedValue();
+			labeltd.textContent = key;
 			
 			var bartd = document.createElement("td");
 			bartd.setAttribute("class","bar");
@@ -111,25 +107,42 @@ Spotfire.initialize(async (mod) => {
 			barsvg.setAttribute("class","barsvg");
 			bartd.appendChild(barsvg);
 			
-			var barsegmentrect = document.createElementNS("http://www.w3.org/2000/svg","rect");
-			var barsegmentvalue = row.continuous("Y").value();
-			var barsegmentpercentage = Number(barsegmentvalue) / maxvalue * 100;
-			var barsegmentcolor = row.color().hexCode;
-			var style = "fill:" + barsegmentcolor + ";";
-			barsegmentrect.setAttribute("x", "0");
-			barsegmentrect.setAttribute("y", "0");
-			barsegmentrect.setAttribute("width", barsegmentpercentage + "%");
-			barsegmentrect.setAttribute("height", "1em");
-			barsegmentrect.setAttribute("style", style);
-			barsvg.appendChild(barsegmentrect);
+			var maxvaluerowstacked = Number(0);
+			var minvaluerowstacked = Number(0);
 
+			rowstacked.forEach(function(row){
+				var barsegmentrect = document.createElementNS("http://www.w3.org/2000/svg","rect");
+				var barsegmentvalue = Number(row.continuous("Y").value());
+				var barsegmentx = maxvaluerowstacked / maxvalue * 100;
+				var barsegmentwidth = (barsegmentvalue) / maxvalue * 100;
+				var barsegmentcolor = row.color().hexCode;
+				var style = "fill:" + barsegmentcolor + ";";
+				barsegmentrect.setAttribute("x", barsegmentx + "%");
+				barsegmentrect.setAttribute("y", "0");
+				barsegmentrect.setAttribute("width", barsegmentwidth + "%");
+				barsegmentrect.setAttribute("height", "1em");
+				barsegmentrect.setAttribute("style", style);
+				barsvg.appendChild(barsegmentrect);
+
+				if ( barsegmentvalue > 0 ){
+					maxvaluerowstacked += barsegmentvalue;
+				}
+				else {
+					minvaluerowstacked += barsegmentvalue;
+				}
+			});
+			
+			var valuetd = document.createElement("td");
+			valuetd.setAttribute("class","value");
+			//TODO maxvaluerowstacked should be rendered as formattedValue
+			valuetd.textContent = maxvaluerowstacked;
+			
 			var tr = document.createElement("tr");
 			tr.appendChild(labeltd);
 			tr.appendChild(valuetd);
 			tr.appendChild(bartd);
 			tabbarchart.appendChild(tr);
 			
-			});
 		});
 		
         /**
