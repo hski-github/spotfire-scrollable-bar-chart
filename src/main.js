@@ -52,18 +52,47 @@ Spotfire.initialize(async (mod) => {
          */
 		var tabbarchart = document.querySelector("#tabularbarchart");
 		tabbarchart.innerHTML = "";
+
+
+		/**
+		 * Create map of stacked bars
+		 */
+		var rowsstacked = new Map();
+		rows.forEach(function(row){
+			var barcategory = row.categorical("X").formattedValue();
+			if ( !rowsstacked.has(barcategory) ){
+				rowsstacked.set( barcategory, new Set() );
+			}
+			var barsegments = rowsstacked.get(barcategory);
+			barsegments.add(row);
+		});
+
 		
+		/** 
+		 * Calculating total min and max value of stacked bars
+		 */
 		var maxvalue = Number(0);
 		var minvalue = Number(0);
-		rows.forEach(function(row){
-			var barvalue = Number(row.continuous("Y").value());
-			if ( barvalue > maxvalue ) {
-				maxvalue = barvalue;
+		rowsstacked.forEach(function(rowstacked){
+			var maxvaluerowstacked = Number(0);
+			var minvaluerowstacked = Number(0);
+			rowstacked.forEach(function(row){
+				var barvalue = Number(row.continuous("Y").value());
+				if ( barvalue > 0 ){
+					maxvaluerowstacked += barvalue;
+				}
+				else {
+					minvaluerowstacked += barvalue;
+				}
+			})
+			if ( maxvaluerowstacked > maxvalue ) {
+				maxvalue = maxvaluerowstacked;
 			}
-			if ( barvalue < minvalue ){
-				minvalue = barvalue;
+			if ( minvaluerowstacked < minvalue ){
+				minvalue = minvaluerowstacked;
 			}
 		});
+
 		
 		rows.forEach(function(row){
 			
