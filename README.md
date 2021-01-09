@@ -9,8 +9,8 @@ Scrollable Bar Chart is released under the [MIT License](LICENSE). All source co
 ## Known Limitations 
 
 As of now
-- Negative values are not correctly shown
-- No rendering of stacked bars
+- Negative values are not shown as values, only positive sum
+- Y axis not shown, so null point unclear for negative values
 - No support for marking
 - No sorting
 - No 100% bars 
