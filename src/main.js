@@ -140,7 +140,7 @@ Spotfire.initialize(async (mod) => {
 			var valuetd = document.createElement("td");
 			valuetd.setAttribute("class","value");
 			//TODO maxvaluerowstacked should be rendered as formattedValue
-			valuetd.textContent = maxvaluerowstacked;
+			valuetd.textContent = maxvaluerowstacked + minvaluerowstacked;
 			
 			var tr = document.createElement("tr");
 			tr.appendChild(labeltd);
