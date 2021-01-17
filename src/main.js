@@ -93,7 +93,6 @@ Spotfire.initialize(async (mod) => {
 			}
 		});
 		var minmaxvalue = maxvalue - minvalue;
-
 		
 		rowsstacked.forEach(function(rowstacked, key){
 			
@@ -123,9 +122,9 @@ Spotfire.initialize(async (mod) => {
 				var barsegmentcolor = row.color().hexCode;
 				var style = "fill:" + barsegmentcolor + ";";
 				barsegmentrect.setAttribute("x", barsegmentx + "%");
-				barsegmentrect.setAttribute("y", "0");
+				barsegmentrect.setAttribute("y", "10%");
 				barsegmentrect.setAttribute("width", barsegmentwidth + "%");
-				barsegmentrect.setAttribute("height", "1em");
+				barsegmentrect.setAttribute("height", "80%");
 				barsegmentrect.setAttribute("style", style);
 				barsvg.appendChild(barsegmentrect);
 
@@ -136,6 +135,18 @@ Spotfire.initialize(async (mod) => {
 					minvaluerowstacked += barsegmentvalue;
 				}
 			});
+
+			if ( minvalue < 0 ){
+				var nullpointx = Math.abs(minvalue) / minmaxvalue * 100;
+
+				var axis = document.createElementNS("http://www.w3.org/2000/svg","line");
+				axis.setAttribute("x1", nullpointx + "%");
+				axis.setAttribute("y1", 0);
+				axis.setAttribute("x2", nullpointx + "%");
+				axis.setAttribute("y2", "100%");
+				axis.setAttribute("style", "stroke:lightgrey;stroke-width:1");
+				barsvg.appendChild(axis);
+			}
 			
 			var valuetd = document.createElement("td");
 			valuetd.setAttribute("class","value");
