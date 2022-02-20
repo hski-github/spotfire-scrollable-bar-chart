@@ -16,17 +16,18 @@ Scrollable Bar Chart is released under the [MIT License](LICENSE). All source co
 - Better names for X and Y axis
 - Individual icon
 - Show total
+- Scale axis
 
 ## Known Limitations 
 
 As of now, but planning to enhance the visualization mod in this direction
 
-- No stacked bars
-- No vertical bar chart
+- Stacked bars
+- Vertical bar chart
 
 Not planned to be supported by this visualization mod
 
-- Support for error bars (currently no plan to enhance the mod in this direction)
+- No support for error bars (currently no plan to enhance the mod in this direction)
 - No 100% bars
 - No hierarchy shown as category axis
 - No i18n of title, axis labels and description
