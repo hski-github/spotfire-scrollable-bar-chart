@@ -15,6 +15,7 @@ Scrollable Bar Chart is released under the [MIT License](LICENSE). All source co
 - Support for tool tip
 - Better names for X and Y axis
 - Individual icon
+- Show total
 
 ## Known Limitations 
 
