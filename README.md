@@ -8,22 +8,27 @@ This difference in layout concept compared to standard bar chart ensures, that l
 
 Scrollable Bar Chart is released under the [MIT License](LICENSE). All source code for the mod can be found in the `src` folder.
 
+## To Do's
+
+- Support for marking
+- Support for sorting by value or label
+- Support for tool tip
+- Better names for X and Y axis
+- Individual icon
+
 ## Known Limitations 
 
 As of now, but planning to enhance the visualization mod in this direction
-- No support for marking
-- No sorting
-- No 100% bars 
+
 - No stacked bars
-- No hierarchy shown as category axis
-- No hover with details about bar segment
-- Better names for X and Y axis
-- No i18n of title, axis labels and description
-- Individual icon 
+- No vertical bar chart
 
 Not planned to be supported by this visualization mod
+
 - Support for error bars (currently no plan to enhance the mod in this direction)
-- Support for vertical bar chart (currently no plan to enhance the mod in this direction)
+- No 100% bars
+- No hierarchy shown as category axis
+- No i18n of title, axis labels and description
 
 
 ## How to get started with Spotfire mod development 
