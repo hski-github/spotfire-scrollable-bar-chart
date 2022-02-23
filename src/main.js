@@ -24,9 +24,8 @@ Spotfire.initialize(async (mod) => {
      * @param {Spotfire.ModProperty<string>} prop
      */
     async function render(dataView, windowSize, prop) {
-        /**
-         * Check the data view for errors
-         */
+
+        // Check the data view for errors
         let errors = await dataView.getErrors();
         if (errors.length > 0) {
             // Showing an error overlay will hide the mod iframe.
@@ -37,9 +36,8 @@ Spotfire.initialize(async (mod) => {
         }
         mod.controls.errorOverlay.hide();
 
-        /**
-         * Get rows from dataView
-         */
+
+        // Get rows from dataView
         const rows = await dataView.allRows();
         if (rows == null) {
             // User interaction caused the data view to expire.
@@ -47,16 +45,13 @@ Spotfire.initialize(async (mod) => {
             return;
         }
 
-        /**
-         * Print out to document
-         */
+
+        // Remove previous content
 		var tabbarchart = document.querySelector("#tabularbarchart");
 		tabbarchart.innerHTML = "";
 
 
-		/**
-		 * Create map of stacked bars
-		 */
+		// Create map of stacked bars as internal data structure for rendering
 		var rowsstacked = new Map();
 		rows.forEach(function(row){
 			var barcategory = row.categorical("X").formattedValue();
@@ -68,9 +63,7 @@ Spotfire.initialize(async (mod) => {
 		});
 
 		
-		/** 
-		 * Calculating total min and max value of stacked bars
-		 */
+		// Calculating total min and max value of stacked bars
 		var maxvalue = Number(0);
 		var minvalue = Number(0);
 		rowsstacked.forEach(function(rowstacked){
@@ -94,12 +87,42 @@ Spotfire.initialize(async (mod) => {
 		});
 		var minmaxvalue = maxvalue - minvalue;
 		
+		
+		// Render header with axis in case of negative values
+		if ( minvalue < 0 ){
+			var headertd = document.createElement("td");
+			headertd.setAttribute("class","bar");
+			var headersvg = document.createElementNS("http://www.w3.org/2000/svg","svg");
+			headersvg.setAttribute("class","headersvg");
+			headertd.appendChild(headersvg);
+			
+			var nullpointx = Math.abs(minvalue) / minmaxvalue * 100;
+
+			var axis = document.createElementNS("http://www.w3.org/2000/svg","line");
+			axis.setAttribute("x1", nullpointx + "%");
+			axis.setAttribute("y1", 0);
+			axis.setAttribute("x2", nullpointx + "%");
+			axis.setAttribute("y2", "100%");
+			axis.setAttribute("style", "stroke:lightgrey;stroke-width:1");
+			headersvg.appendChild(axis);
+
+			var tr = document.createElement("tr");
+			tr.appendChild(document.createElement("td"));
+			tr.appendChild(document.createElement("td"));
+			tr.appendChild(headertd);
+			tabbarchart.appendChild(tr);
+		}
+
+
+		// Render rows
 		rowsstacked.forEach(function(rowstacked, key){
 			
+			// Render label
 			var labeltd = document.createElement("td");
 			labeltd.setAttribute("class", "label");
 			labeltd.textContent = key;
 			
+			// Render stacked bar
 			var bartd = document.createElement("td");
 			bartd.setAttribute("class","bar");
 			var barsvg = document.createElementNS("http://www.w3.org/2000/svg","svg");
@@ -120,12 +143,11 @@ Spotfire.initialize(async (mod) => {
 				}
 				var barsegmentwidth = Math.abs(barsegmentvalue) / minmaxvalue * 100;
 				var barsegmentcolor = row.color().hexCode;
-				var style = "fill:" + barsegmentcolor + ";";
 				barsegmentrect.setAttribute("x", barsegmentx + "%");
 				barsegmentrect.setAttribute("y", "10%");
 				barsegmentrect.setAttribute("width", barsegmentwidth + "%");
 				barsegmentrect.setAttribute("height", "80%");
-				barsegmentrect.setAttribute("style", style);
+				barsegmentrect.setAttribute("style", "fill:" + barsegmentcolor + ";");
 				barsvg.appendChild(barsegmentrect);
 
 				if ( barsegmentvalue > 0 ){
@@ -136,6 +158,7 @@ Spotfire.initialize(async (mod) => {
 				}
 			});
 
+			// Render axis in case of negative values
 			if ( minvalue < 0 ){
 				var nullpointx = Math.abs(minvalue) / minmaxvalue * 100;
 
@@ -148,11 +171,12 @@ Spotfire.initialize(async (mod) => {
 				barsvg.appendChild(axis);
 			}
 			
+			// Render numerical value of row
 			var valuetd = document.createElement("td");
 			valuetd.setAttribute("class","value");
-			//TODO maxvaluerowstacked should be rendered as formattedValue
 			valuetd.textContent = maxvaluerowstacked + minvaluerowstacked;
 			
+			// Append table row with label, value and bar
 			var tr = document.createElement("tr");
 			tr.appendChild(labeltd);
 			tr.appendChild(valuetd);
@@ -160,10 +184,35 @@ Spotfire.initialize(async (mod) => {
 			tabbarchart.appendChild(tr);
 			
 		});
+
+
+		// Render header with axis in case of negative values
+		if ( minvalue < 0 ){
+			var headertd = document.createElement("td");
+			headertd.setAttribute("class","bar");
+			var headersvg = document.createElementNS("http://www.w3.org/2000/svg","svg");
+			headersvg.setAttribute("class","headersvg");
+			headertd.appendChild(headersvg);
+			
+			var nullpointx = Math.abs(minvalue) / minmaxvalue * 100;
+
+			var axis = document.createElementNS("http://www.w3.org/2000/svg","line");
+			axis.setAttribute("x1", nullpointx + "%");
+			axis.setAttribute("y1", 0);
+			axis.setAttribute("x2", nullpointx + "%");
+			axis.setAttribute("y2", "100%");
+			axis.setAttribute("style", "stroke:lightgrey;stroke-width:1");
+			headersvg.appendChild(axis);
+
+			var tr = document.createElement("tr");
+			tr.appendChild(document.createElement("td"));
+			tr.appendChild(document.createElement("td"));
+			tr.appendChild(headertd);
+			tabbarchart.appendChild(tr);
+		}
+
 		
-        /**
-         * Signal that the mod is ready for export.
-         */
+        // Signal that the mod is ready for export.
         context.signalRenderComplete();
     }
 });
