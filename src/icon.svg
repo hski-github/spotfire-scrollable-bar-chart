@@ -1,1 +1,35 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.cls-1{fill:#faa264;}</style></defs><title>Mods_icons</title><path class="cls-1" d="M24,15a3.141,3.141,0,0,1-3.15,3,2.757,2.757,0,0,1-2.445-1.5H18V24H10.5v-.405A2.757,2.757,0,0,0,12,21.15,3.141,3.141,0,0,0,9,18a3.141,3.141,0,0,0-3,3.15,2.757,2.757,0,0,0,1.5,2.445V24H0V6H7.5V5.595A2.757,2.757,0,0,1,6,3.15,3.141,3.141,0,0,1,9,0a3.141,3.141,0,0,1,3,3.15,2.757,2.757,0,0,1-1.5,2.445V6H18v7.5h.405A2.757,2.757,0,0,1,20.85,12,3.141,3.141,0,0,1,24,15Z"/></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(3.14143e-17,0.481571,-0.501997,2.59167e-17,19.0089,10.4885)">
+        <rect x="9" y="16" width="6" height="6" style="fill:rgb(250,120,100);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(3.2908e-17,0.481571,-0.891221,4.97498e-17,27.5801,6.22115)">
+        <rect x="9" y="16" width="6" height="6" style="fill:rgb(250,120,100);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(3.64739e-17,0.481571,-1.82039,1.06645e-16,51.0255,10.4885)">
+        <rect x="9" y="16" width="6" height="6" style="fill:rgb(100,137,250);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(3.3768e-17,0.481571,-1.11533,6.34722e-17,37.8577,6.22115)">
+        <rect x="9" y="16" width="6" height="6" style="fill:rgb(100,137,250);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(3.20106e-17,0.481571,-0.657396,3.54321e-17,28.4359,1.9538)">
+        <rect x="9" y="16" width="6" height="6" style="fill:rgb(250,120,100);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(3.33254e-17,0.481571,-1,5.64105e-17,29.9732,14.7558)">
+        <rect x="9" y="16" width="6" height="6" style="fill:rgb(100,137,250);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(3.33254e-17,0.481571,-1,5.64105e-17,29.9732,1.9538)">
+        <rect x="9" y="16" width="6" height="6" style="fill:rgb(250,162,100);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(3.25566e-17,0.481571,-0.799654,4.41429e-17,25.5574,-2.31355)">
+        <rect x="9" y="16" width="6" height="6" style="fill:rgb(250,162,100);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1.4638,0,0,0.477745,-0.423676,4.19288)">
+        <rect x="1.942" y="1.808" width="2.058" height="20.168" style="fill:rgb(128,128,128);"/>
+        <path d="M4,1.808L1.942,1.808L1.942,21.975L4,21.975L4,1.808ZM3.818,2.366L3.818,21.417C3.818,21.417 2.125,21.417 2.125,21.417C2.125,21.417 2.125,2.366 2.125,2.366L3.818,2.366Z" style="fill:rgb(128,128,128);"/>
+    </g>
+    <g transform="matrix(1.4638,0,0,0.989635,-0.423676,0.227775)">
+        <path d="M4,1.808L1.942,1.808L1.942,21.975L4,21.975L4,1.808ZM3.545,2.481L3.545,21.302C3.545,21.302 2.398,21.302 2.398,21.302C2.398,21.302 2.398,2.481 2.398,2.481L3.545,2.481Z" style="fill:rgb(128,128,128);"/>
+    </g>
+</svg>
