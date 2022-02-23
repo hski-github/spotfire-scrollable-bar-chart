@@ -46,6 +46,11 @@ Spotfire.initialize(async (mod) => {
         }
 
 
+		// Get colors from theme
+		var fontColor = mod.getRenderContext().styling.general.font.color;
+		var backgroundColor = mod.getRenderContext().styling.general.backgroundColor;
+
+
         // Remove previous content
 		var tabbarchart = document.querySelector("#tabularbarchart");
 		tabbarchart.innerHTML = "";
@@ -103,7 +108,7 @@ Spotfire.initialize(async (mod) => {
 			axis.setAttribute("y1", 0);
 			axis.setAttribute("x2", nullpointx + "%");
 			axis.setAttribute("y2", "100%");
-			axis.setAttribute("style", "stroke:lightgrey;stroke-width:1");
+			axis.setAttribute("style", "stroke:" + fontColor + ";stroke-width:1");
 			headersvg.appendChild(axis);
 
 			var tr = document.createElement("tr");
@@ -167,7 +172,7 @@ Spotfire.initialize(async (mod) => {
 				axis.setAttribute("y1", 0);
 				axis.setAttribute("x2", nullpointx + "%");
 				axis.setAttribute("y2", "100%");
-				axis.setAttribute("style", "stroke:lightgrey;stroke-width:1");
+				axis.setAttribute("style", "stroke:" + fontColor + ";stroke-width:1");
 				barsvg.appendChild(axis);
 			}
 			
@@ -201,7 +206,7 @@ Spotfire.initialize(async (mod) => {
 			axis.setAttribute("y1", 0);
 			axis.setAttribute("x2", nullpointx + "%");
 			axis.setAttribute("y2", "100%");
-			axis.setAttribute("style", "stroke:lightgrey;stroke-width:1");
+			axis.setAttribute("style", "stroke:" + fontColor + ";stroke-width:1");
 			headersvg.appendChild(axis);
 
 			var tr = document.createElement("tr");
