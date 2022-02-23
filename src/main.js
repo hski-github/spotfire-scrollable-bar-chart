@@ -91,6 +91,7 @@ Spotfire.initialize(async (mod) => {
 			}
 		});
 		var minmaxvalue = maxvalue - minvalue;
+		var nullpointx = Math.abs(minvalue) / minmaxvalue * 100;
 		
 		
 		// Render header with axis in case of negative values
@@ -100,15 +101,8 @@ Spotfire.initialize(async (mod) => {
 			var headersvg = document.createElementNS("http://www.w3.org/2000/svg","svg");
 			headersvg.setAttribute("class","headersvg");
 			headertd.appendChild(headersvg);
-			
-			var nullpointx = Math.abs(minvalue) / minmaxvalue * 100;
 
-			var axis = document.createElementNS("http://www.w3.org/2000/svg","line");
-			axis.setAttribute("x1", nullpointx + "%");
-			axis.setAttribute("y1", 0);
-			axis.setAttribute("x2", nullpointx + "%");
-			axis.setAttribute("y2", "100%");
-			axis.setAttribute("style", "stroke:" + fontColor + ";stroke-width:1");
+			var axis = createAxisSvg(nullpointx, fontColor);
 			headersvg.appendChild(axis);
 
 			var tr = document.createElement("tr");
@@ -165,14 +159,7 @@ Spotfire.initialize(async (mod) => {
 
 			// Render axis in case of negative values
 			if ( minvalue < 0 ){
-				var nullpointx = Math.abs(minvalue) / minmaxvalue * 100;
-
-				var axis = document.createElementNS("http://www.w3.org/2000/svg","line");
-				axis.setAttribute("x1", nullpointx + "%");
-				axis.setAttribute("y1", 0);
-				axis.setAttribute("x2", nullpointx + "%");
-				axis.setAttribute("y2", "100%");
-				axis.setAttribute("style", "stroke:" + fontColor + ";stroke-width:1");
+				var axis = createAxisSvg(nullpointx, fontColor);
 				barsvg.appendChild(axis);
 			}
 			
@@ -199,14 +186,7 @@ Spotfire.initialize(async (mod) => {
 			headersvg.setAttribute("class","headersvg");
 			headertd.appendChild(headersvg);
 			
-			var nullpointx = Math.abs(minvalue) / minmaxvalue * 100;
-
-			var axis = document.createElementNS("http://www.w3.org/2000/svg","line");
-			axis.setAttribute("x1", nullpointx + "%");
-			axis.setAttribute("y1", 0);
-			axis.setAttribute("x2", nullpointx + "%");
-			axis.setAttribute("y2", "100%");
-			axis.setAttribute("style", "stroke:" + fontColor + ";stroke-width:1");
+			var axis = createAxisSvg(nullpointx, fontColor);
 			headersvg.appendChild(axis);
 
 			var tr = document.createElement("tr");
@@ -221,3 +201,14 @@ Spotfire.initialize(async (mod) => {
         context.signalRenderComplete();
     }
 });
+	
+	
+function createAxisSvg(nullpointx, fontColor){
+	var axis = document.createElementNS("http://www.w3.org/2000/svg","line");
+	axis.setAttribute("x1", nullpointx + "%");
+	axis.setAttribute("y1", 0);
+	axis.setAttribute("x2", nullpointx + "%");
+	axis.setAttribute("y2", "100%");
+	axis.setAttribute("style", "stroke:" + fontColor + ";stroke-width:1");
+	return axis;
+};
