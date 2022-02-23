@@ -196,7 +196,13 @@ Spotfire.initialize(async (mod) => {
 			tabbarchart.appendChild(tr);
 		}
 
-		
+
+		// Clear marking
+		document.body.onclick = function ( event ) {
+			if (!event.shiftKey) dataView.clearMarking();
+		};		
+
+				
         // Signal that the mod is ready for export.
         context.signalRenderComplete();
     }
