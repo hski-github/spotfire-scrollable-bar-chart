@@ -3,6 +3,7 @@ body{
 }
 
 table#tabularbarchart{
+	user-select: none;
 	overflow: auto;
 	border-collapse: collapse;
 }

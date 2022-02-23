@@ -141,12 +141,12 @@ Spotfire.initialize(async (mod) => {
 					var barsegmentx = (Math.abs(minvalue) + minvaluerowstacked + barsegmentvalue) / minmaxvalue * 100;
 				}
 				var barsegmentwidth = Math.abs(barsegmentvalue) / minmaxvalue * 100;
-				var barsegmentcolor = row.color().hexCode;
 				barsegmentrect.setAttribute("x", barsegmentx + "%");
 				barsegmentrect.setAttribute("y", "10%");
 				barsegmentrect.setAttribute("width", barsegmentwidth + "%");
 				barsegmentrect.setAttribute("height", "80%");
-				barsegmentrect.setAttribute("style", "fill:" + barsegmentcolor + ";");
+				barsegmentrect.setAttribute("style", "fill:" + row.color().hexCode + ";");
+				barsegmentrect.setAttribute("row", row.elementId() );
 				barsvg.appendChild(barsegmentrect);
 
 				if ( barsegmentvalue > 0 ){
@@ -197,10 +197,32 @@ Spotfire.initialize(async (mod) => {
 		}
 
 
+		// Marking
+		var allbarrects = document.querySelectorAll(".barsvg rect");
+		allbarrects.forEach( function(onebarrect){
+			onebarrect.onclick = function ( event ){
+
+				var elementId = event.target.getAttribute("row");
+				var row = rows.find( obj => { return obj.elementId() === elementId });
+
+				if (event.shiftKey) {
+					dataView.mark(new Array(row),"Add");
+				}
+				else {
+					dataView.mark(new Array(row),"Replace");
+				}
+				event.stopPropagation();
+			};
+		});
+
+
 		// Clear marking
-		document.body.onclick = function ( event ) {
-			if (!event.shiftKey) dataView.clearMarking();
-		};		
+		var allbarsvgs = document.querySelectorAll(".barsvg");
+		allbarsvgs.forEach( function(onebarsvg){
+			onebarsvg.onclick = function ( event ) {
+				if (!event.shiftKey) dataView.clearMarking();
+			};		
+		});
 
 				
         // Signal that the mod is ready for export.
