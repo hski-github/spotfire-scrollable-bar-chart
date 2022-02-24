@@ -20,6 +20,7 @@ Scrollable Bar Chart is released under the [MIT License](LICENSE). All source co
 
 As of now, but planning to enhance the visualization mod in this direction
 
+- Hierarchy shown as category axis
 - Vertical bar chart
 - Horizontal scale axis
 
@@ -27,7 +28,6 @@ Not planned to be supported by this visualization mod
 
 - No support for error bars (currently no plan to enhance the mod in this direction)
 - No 100% bars
-- No hierarchy shown as category axis
 - No i18n of title, axis labels and description
 
 
