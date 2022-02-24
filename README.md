@@ -10,20 +10,18 @@ Scrollable Bar Chart is released under the [MIT License](LICENSE). All source co
 
 ## To Do's
 
-- Support for marking
+- Full support for marking incl. click on category and rectangle selection
 - Support for sorting by value or label
 - Support for tool tip
 - Better names for X and Y axis
-- Individual icon
 - Show total
-- Scale axis
 
 ## Known Limitations 
 
 As of now, but planning to enhance the visualization mod in this direction
 
-- Stacked bars
 - Vertical bar chart
+- Horizontal scale axis
 
 Not planned to be supported by this visualization mod
 
