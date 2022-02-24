@@ -1,23 +1,36 @@
 # Spotfire Scrollable Bar Chart
 
-This is a Spotfire mod project to create a horizontal bar chart, which adds a scroll bar if more bars needs to be shown instead on decreasing the bar size.  
+This is a Spotfire mod project to create a horizontal bar chart, which adds a scroll bar if more bars needs to be shown instead on decreasing the bar size.
+
+This difference in layout concept compared to standard bar chart ensures, that labels of the bars are allways visible, readable in standard font size and without ellipsis. 
 
 [![ScreenShot](/screenshots/screenshot-scrollable-vs-standard-bar-chart_thumbnail.png?raw=true)](/screenshots/screenshot-scrollable-vs-standard-bar-chart.png?raw=true)
 
 Scrollable Bar Chart is released under the [MIT License](LICENSE). All source code for the mod can be found in the `src` folder.
 
+## To Do's
+
+- Support for marking
+- Support for sorting by value or label
+- Support for tool tip
+- Better names for X and Y axis
+- Individual icon
+- Show total
+- Scale axis
+
 ## Known Limitations 
 
-As of now
-- No support for marking
-- No sorting
-- No 100% bars 
-- No hover with details about bar segment
-- Better names for X and Y axis
-- No i18n of title, axis labels and description
-- Individual icon 
+As of now, but planning to enhance the visualization mod in this direction
+
+- Stacked bars
+- Vertical bar chart
+
+Not planned to be supported by this visualization mod
+
 - No support for error bars (currently no plan to enhance the mod in this direction)
-- No support for vertical bar chart (currently no plan to enhance the mod in this direction)
+- No 100% bars
+- No hierarchy shown as category axis
+- No i18n of title, axis labels and description
 
 
 ## How to get started with Spotfire mod development 
