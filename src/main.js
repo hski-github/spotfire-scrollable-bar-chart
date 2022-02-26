@@ -54,11 +54,6 @@ Spotfire.initialize(async (mod) => {
 		var backgroundColor = mod.getRenderContext().styling.general.backgroundColor;
 
 
-		// Show label and percentage as defined per property
-		var style = document.querySelector("#tabularbarchart-style");
-		style.innerHTML = '.value {display: none;}';
-
-
         // Remove previous content
 		var tabbarchart = document.querySelector("#tabularbarchart");
 		tabbarchart.innerHTML = "";
@@ -115,7 +110,7 @@ Spotfire.initialize(async (mod) => {
 
 			var tr = document.createElement("tr");
 			tr.appendChild(document.createElement("td"));
-			tr.appendChild(document.createElement("td"));
+			tr.appendChild(createElementWithClass("td","value"));
 			tr.appendChild(headertd);
 			tabbarchart.appendChild(tr);
 		}
@@ -128,11 +123,6 @@ Spotfire.initialize(async (mod) => {
 			var labeltd = document.createElement("td");
 			labeltd.setAttribute("class", "label");
 			labeltd.textContent = key;
-			
-			// Render numerical value of row
-			var valuetd = document.createElement("td");
-			valuetd.setAttribute("class","value");
-			valuetd.textContent = maxvaluerowstacked + minvaluerowstacked;
 			
 			// Render stacked bar
 			var bartd = document.createElement("td");
@@ -170,6 +160,10 @@ Spotfire.initialize(async (mod) => {
 				}
 			});
 
+			// Render numerical value of row
+			var valuetd = createElementWithClass("td","value");
+			valuetd.textContent = maxvaluerowstacked + minvaluerowstacked;
+						
 			// Render axis in case of negative values
 			if ( minvalue < 0 ){
 				var axis = createAxisSvg(nullpointx, fontColor);
@@ -186,7 +180,7 @@ Spotfire.initialize(async (mod) => {
 		});
 
 
-		// Render header with axis in case of negative values
+		// Render footer with axis in case of negative values
 		if ( minvalue < 0 ){
 			var headertd = document.createElement("td");
 			headertd.setAttribute("class","bar");
@@ -199,9 +193,20 @@ Spotfire.initialize(async (mod) => {
 
 			var tr = document.createElement("tr");
 			tr.appendChild(document.createElement("td"));
-			tr.appendChild(document.createElement("td"));
+			var valuetd = document.createElement("td");
+			valuetd.setAttribute("class","value");
+			tr.appendChild(valuetd);
 			tr.appendChild(headertd);
 			tabbarchart.appendChild(tr);
+		}
+
+
+		// Show label and percentage as defined per property
+		if ( showValue = false ){
+			var allvaluetds = document.querySelectorAll(".value");
+			allvaluetds.forEach( function( valuetd ){
+				valuetd.setAttribute("style", "display: none;"); 
+			});
 		}
 
 
@@ -247,4 +252,11 @@ function createAxisSvg(nullpointx, fontColor){
 	axis.setAttribute("y2", "100%");
 	axis.setAttribute("style", "stroke:" + fontColor + ";stroke-width:1");
 	return axis;
+};
+
+
+function createElementWithClass(tag, cssclass){
+	var element = document.createElement(tag);
+	element.setAttribute("class",cssclass);
+	return element;	
 };
