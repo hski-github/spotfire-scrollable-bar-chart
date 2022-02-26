@@ -69,9 +69,10 @@ Spotfire.initialize(async (mod) => {
 			var barsegments = rowsstacked.get(barcategory);
 			barsegments.add(row);
 		});
-
 		
-		// Calculating total min and max value of stacked bars
+		
+		// Calculating total and total min max value of stacked bars
+		var total = Number(0);
 		var maxvalue = Number(0);
 		var minvalue = Number(0);
 		rowsstacked.forEach(function(rowstacked){
@@ -79,6 +80,7 @@ Spotfire.initialize(async (mod) => {
 			var minvaluerowstacked = Number(0);
 			rowstacked.forEach(function(row){
 				var barvalue = Number(row.continuous("Y").value());
+				total += barvalue;
 				if ( barvalue > 0 ){
 					maxvaluerowstacked += barvalue;
 				}
@@ -99,17 +101,15 @@ Spotfire.initialize(async (mod) => {
 		
 		// Render header with axis in case of negative values
 		if ( minvalue < 0 ){
-			var headertd = document.createElement("td");
-			headertd.setAttribute("class","bar");
-			var headersvg = document.createElementNS("http://www.w3.org/2000/svg","svg");
-			headersvg.setAttribute("class","headersvg");
+			var headertd = createElementWithClass("td","bar");
+			var headersvg = createElementSvgWithClass("svg","headersvg");
 			headertd.appendChild(headersvg);
 
 			var axis = createAxisSvg(nullpointx, fontColor);
 			headersvg.appendChild(axis);
 
 			var tr = document.createElement("tr");
-			tr.appendChild(document.createElement("td"));
+			tr.appendChild(createElementWithClass("td","label"));
 			tr.appendChild(createElementWithClass("td","value"));
 			tr.appendChild(headertd);
 			tabbarchart.appendChild(tr);
@@ -120,15 +120,12 @@ Spotfire.initialize(async (mod) => {
 		rowsstacked.forEach(function(rowstacked, key){
 			
 			// Render label
-			var labeltd = document.createElement("td");
-			labeltd.setAttribute("class", "label");
+			var labeltd = createElementWithClass("td","label");
 			labeltd.textContent = key;
 			
 			// Render stacked bar
-			var bartd = document.createElement("td");
-			bartd.setAttribute("class","bar");
-			var barsvg = document.createElementNS("http://www.w3.org/2000/svg","svg");
-			barsvg.setAttribute("class","barsvg");
+			var bartd = createElementWithClass("td","bar");
+			var barsvg = createElementSvgWithClass("svg","barsvg");
 			bartd.appendChild(barsvg);
 			
 			var maxvaluerowstacked = Number(0);
@@ -182,20 +179,16 @@ Spotfire.initialize(async (mod) => {
 
 		// Render footer with axis in case of negative values
 		if ( minvalue < 0 ){
-			var headertd = document.createElement("td");
-			headertd.setAttribute("class","bar");
-			var headersvg = document.createElementNS("http://www.w3.org/2000/svg","svg");
-			headersvg.setAttribute("class","headersvg");
+			var headertd = createElementWithClass("td","bar");
+			var headersvg = createElementSvgWithClass("svg","headersvg");
 			headertd.appendChild(headersvg);
 			
 			var axis = createAxisSvg(nullpointx, fontColor);
 			headersvg.appendChild(axis);
 
 			var tr = document.createElement("tr");
-			tr.appendChild(document.createElement("td"));
-			var valuetd = document.createElement("td");
-			valuetd.setAttribute("class","value");
-			tr.appendChild(valuetd);
+			tr.appendChild(createElementWithClass("td","label"));
+			tr.appendChild(createElementWithClass("td","value"));
 			tr.appendChild(headertd);
 			tabbarchart.appendChild(tr);
 		}
@@ -250,13 +243,20 @@ function createAxisSvg(nullpointx, fontColor){
 	axis.setAttribute("y1", 0);
 	axis.setAttribute("x2", nullpointx + "%");
 	axis.setAttribute("y2", "100%");
-	axis.setAttribute("style", "stroke:" + fontColor + ";stroke-width:1");
+	axis.setAttribute("style", "stroke:" + fontColor + "; stroke-width:1;");
 	return axis;
 };
 
 
 function createElementWithClass(tag, cssclass){
 	var element = document.createElement(tag);
+	element.setAttribute("class",cssclass);
+	return element;	
+};
+
+
+function createElementSvgWithClass(tag, cssclass){
+	var element = document.createElementNS("http://www.w3.org/2000/svg",tag);
 	element.setAttribute("class",cssclass);
 	return element;	
 };
