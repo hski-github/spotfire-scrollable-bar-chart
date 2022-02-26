@@ -6,7 +6,10 @@ Spotfire.initialize(async (mod) => {
     /**
      * Create the read function.
      */
-    const reader = mod.createReader(mod.visualization.data(), mod.windowSize(), mod.property("myProperty"));
+    const reader = mod.createReader(
+		mod.visualization.data(), mod.windowSize(), 
+		mod.property("showPercentage"), mod.property("showValue")
+	);
 
     /**
      * Store the context.
@@ -23,7 +26,7 @@ Spotfire.initialize(async (mod) => {
      * @param {Spotfire.Size} windowSize
      * @param {Spotfire.ModProperty<string>} prop
      */
-    async function render(dataView, windowSize, prop) {
+    async function render(dataView, windowSize, showPercentage, showValue) {
 
         // Check the data view for errors
         let errors = await dataView.getErrors();
@@ -121,6 +124,11 @@ Spotfire.initialize(async (mod) => {
 			labeltd.setAttribute("class", "label");
 			labeltd.textContent = key;
 			
+			// Render numerical value of row
+			var valuetd = document.createElement("td");
+			valuetd.setAttribute("class","value");
+			valuetd.textContent = maxvaluerowstacked + minvaluerowstacked;
+			
 			// Render stacked bar
 			var bartd = document.createElement("td");
 			bartd.setAttribute("class","bar");
@@ -162,11 +170,6 @@ Spotfire.initialize(async (mod) => {
 				var axis = createAxisSvg(nullpointx, fontColor);
 				barsvg.appendChild(axis);
 			}
-			
-			// Render numerical value of row
-			var valuetd = document.createElement("td");
-			valuetd.setAttribute("class","value");
-			valuetd.textContent = maxvaluerowstacked + minvaluerowstacked;
 			
 			// Append table row with label, value and bar
 			var tr = document.createElement("tr");

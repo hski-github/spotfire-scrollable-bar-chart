@@ -6,9 +6,14 @@
     "icon": "icon.svg",
     "properties": [
         {
-            "name": "myProperty",
-            "type": "string",
-            "defaultValue": "myValue"
+            "name": "showPercentage",
+            "type": "boolean",
+            "defaultValue": "true"
+        }, 
+        {
+            "name": "showValue",
+            "type": "boolean",
+            "defaultValue": "true"
         }
     ],
     "dataViewDefinition": {
