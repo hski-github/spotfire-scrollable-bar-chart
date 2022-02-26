@@ -111,6 +111,7 @@ Spotfire.initialize(async (mod) => {
 			var tr = document.createElement("tr");
 			tr.appendChild(createElementWithClass("td","label"));
 			tr.appendChild(createElementWithClass("td","value"));
+			tr.appendChild(createElementWithClass("td","percentage"));
 			tr.appendChild(headertd);
 			tabbarchart.appendChild(tr);
 		}
@@ -157,20 +158,25 @@ Spotfire.initialize(async (mod) => {
 				}
 			});
 
-			// Render numerical value of row
-			var valuetd = createElementWithClass("td","value");
-			valuetd.textContent = maxvaluerowstacked + minvaluerowstacked;
-						
 			// Render axis in case of negative values
 			if ( minvalue < 0 ){
 				var axis = createAxisSvg(nullpointx, fontColor);
 				barsvg.appendChild(axis);
 			}
 			
+			// Render numerical value of row
+			var valuetd = createElementWithClass("td","value");
+			valuetd.textContent = maxvaluerowstacked + minvaluerowstacked;
+						
+			// Render percentage value of row
+			var percentagetd = createElementWithClass("td","percentage");
+			percentagetd.textContent = Number((maxvaluerowstacked + minvaluerowstacked) / total * 100).toFixed(0) + " %";
+			
 			// Append table row with label, value and bar
 			var tr = document.createElement("tr");
 			tr.appendChild(labeltd);
 			tr.appendChild(valuetd);
+			tr.appendChild(percentagetd);
 			tr.appendChild(bartd);
 			tabbarchart.appendChild(tr);
 			
@@ -189,6 +195,7 @@ Spotfire.initialize(async (mod) => {
 			var tr = document.createElement("tr");
 			tr.appendChild(createElementWithClass("td","label"));
 			tr.appendChild(createElementWithClass("td","value"));
+			tr.appendChild(createElementWithClass("td","percentage"));
 			tr.appendChild(headertd);
 			tabbarchart.appendChild(tr);
 		}
@@ -201,7 +208,13 @@ Spotfire.initialize(async (mod) => {
 				valuetd.setAttribute("style", "display: none;"); 
 			});
 		}
-
+		if ( showPercentage = false ){
+			var allvaluetds = document.querySelectorAll(".percentage");
+			allvaluetds.forEach( function( valuetd ){
+				valuetd.setAttribute("style", "display: none;"); 
+			});
+		}
+		
 
 		// Marking
 		var allbarrects = document.querySelectorAll(".barsvg rect");
