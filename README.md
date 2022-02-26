@@ -13,7 +13,6 @@ Scrollable Bar Chart is released under the [MIT License](LICENSE). All source co
 - Full support for marking incl. highlighting border, click on category and rectangle selection
 - Support for sorting by value or label
 - Support for tool tip
-- Better names for X and Y axis
 - Show total
 - Show value and/or percentage per row
 
