@@ -1,6 +1,6 @@
 {
     "apiVersion": "1.1",
-    "version": "0.5",
+    "version": "0.6",
     "name": "Scrollable Bar Chart",
     "id": "spotfire-scrollable-bar-chart-hski",
     "icon": "icon.svg",
