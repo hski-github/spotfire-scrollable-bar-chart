@@ -21,18 +21,22 @@
         },
         "axes": [
             {
-                "name": "X",
+                "name": "Category",
                 "mode": "categorical",
                 "placement": "left",
                 "dropTarget": {
-                    "icon": "XAxis3D",
-                    "description": "Use {0} on the mod's X-axis"
+                    "icon": "Column",
+                    "description": "Use {0} as Category for Scrollable Bar Chart"
                 }
             },
             {
-                "name": "Y",
+                "name": "Value",
                 "mode": "continuous",
-                "placement": "bottom"
+                "placement": "bottom",
+                "dropTarget": {
+                    "icon": "XAxis",
+                    "description": "Use {0} as Value for Scrollable Bar Chart"
+                }                
             }
         ]
     },

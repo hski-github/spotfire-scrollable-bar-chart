@@ -59,7 +59,7 @@ Spotfire.initialize(async (mod) => {
 		// Create map of stacked bars as internal data structure for rendering
 		var rowsstacked = new Map();
 		rows.forEach(function(row){
-			var barcategory = row.categorical("X").formattedValue();
+			var barcategory = row.categorical("Category").formattedValue();
 			if ( !rowsstacked.has(barcategory) ){
 				rowsstacked.set( barcategory, new Set() );
 			}
@@ -75,7 +75,7 @@ Spotfire.initialize(async (mod) => {
 			var maxvaluerowstacked = Number(0);
 			var minvaluerowstacked = Number(0);
 			rowstacked.forEach(function(row){
-				var barvalue = Number(row.continuous("Y").value());
+				var barvalue = Number(row.continuous("Value").value());
 				if ( barvalue > 0 ){
 					maxvaluerowstacked += barvalue;
 				}
@@ -133,7 +133,7 @@ Spotfire.initialize(async (mod) => {
 
 			rowstacked.forEach(function(row){
 				var barsegmentrect = document.createElementNS("http://www.w3.org/2000/svg","rect");
-				var barsegmentvalue = Number(row.continuous("Y").value());
+				var barsegmentvalue = Number(row.continuous("Value").value());
 				if ( barsegmentvalue > 0){
 					var barsegmentx = (maxvaluerowstacked - minvalue) / minmaxvalue * 100;
 				}
