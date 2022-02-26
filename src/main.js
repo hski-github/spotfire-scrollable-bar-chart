@@ -54,6 +54,11 @@ Spotfire.initialize(async (mod) => {
 		var backgroundColor = mod.getRenderContext().styling.general.backgroundColor;
 
 
+		// Show label and percentage as defined per property
+		var style = document.querySelector("#tabularbarchart-style");
+		style.innerHTML = '.value {display: none;}';
+
+
         // Remove previous content
 		var tabbarchart = document.querySelector("#tabularbarchart");
 		tabbarchart.innerHTML = "";
