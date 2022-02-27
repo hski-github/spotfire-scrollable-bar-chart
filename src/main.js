@@ -222,6 +222,19 @@ Spotfire.initialize(async (mod) => {
 		}
 		
 
+		// Sorting
+		if ( true ){
+			const tbody = document.querySelector('tbody');
+			Array.from(tbody.querySelectorAll('tr'))
+				.sort(function(tra, trb){
+					const valuea = Number(tra.getElementsByClassName("value")[0].textContent);
+					const valueb = Number(trb.getElementsByClassName("value")[0].textContent);
+					return valueb - valuea;
+				})
+				.forEach(tr => tbody.appendChild(tr) );
+		}
+
+
 		// Marking
 		var allbarrects = document.querySelectorAll(".barsvg rect");
 		allbarrects.forEach( function(onebarrect){
