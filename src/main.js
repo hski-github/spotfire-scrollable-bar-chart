@@ -8,7 +8,7 @@ Spotfire.initialize(async (mod) => {
      */
     const reader = mod.createReader(
 		mod.visualization.data(), mod.windowSize(), 
-		mod.property("showPercentage"), mod.property("showValue")
+		mod.property("showPercentage"), mod.property("showValue"), mod.property("sortByValue")
 	);
 
     /**
@@ -26,7 +26,7 @@ Spotfire.initialize(async (mod) => {
      * @param {Spotfire.Size} windowSize
      * @param {Spotfire.ModProperty<string>} prop
      */
-    async function render(dataView, windowSize, showPercentage, showValue) {
+    async function render(dataView, windowSize, showPercentage, showValue, sortByValue) {
 
         // Check the data view for errors
         let errors = await dataView.getErrors();
@@ -208,13 +208,13 @@ Spotfire.initialize(async (mod) => {
 
 
 		// Show label and percentage as defined per property
-		if ( showValue = false ){
+		if ( !showValue.value() ){
 			var allvaluetds = document.querySelectorAll(".value");
 			allvaluetds.forEach( function( valuetd ){
 				valuetd.setAttribute("style", "display: none;"); 
 			});
 		}
-		if ( showPercentage = false ){
+		if ( !showPercentage.value() ){
 			var allvaluetds = document.querySelectorAll(".percentage");
 			allvaluetds.forEach( function( valuetd ){
 				valuetd.setAttribute("style", "display: none;"); 
@@ -222,8 +222,8 @@ Spotfire.initialize(async (mod) => {
 		}
 		
 
-		// Sorting
-		if ( true ){
+		// Sort by value as defined per property
+		if ( sortByValue.value() ){
 			const tbody = document.querySelector('tbody');
 			Array.from(tbody.querySelectorAll('tr'))
 				.sort(function(tra, trb){
