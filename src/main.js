@@ -101,24 +101,31 @@ Spotfire.initialize(async (mod) => {
 		
 		// Render header with axis in case of negative values
 		if ( minvalue < 0 ){
-			var headertd = createElementWithClass("td","bar");
-			var headersvg = createElementSvgWithClass("svg","headersvg");
-			headertd.appendChild(headersvg);
-
-			var axis = createAxisSvg(nullpointx, fontColor);
-			headersvg.appendChild(axis);
-
+			var theadbarchart = document.createElement("thead");
+			tabbarchart.appendChild(theadbarchart);
 			var tr = document.createElement("tr");
+			theadbarchart.appendChild(tr);
+			
 			tr.appendChild(createElementWithClass("td","label"));
 			tr.appendChild(createElementWithClass("td","value"));
 			tr.appendChild(createElementWithClass("td","percentage"));
-			tr.appendChild(headertd);
-			tabbarchart.appendChild(tr);
+
+			var td = createElementWithClass("td","bar");
+			tr.appendChild(td);
+			var svg = createElementSvgWithClass("svg","headersvg");
+			td.appendChild(svg);
+			var axis = createAxisSvg(nullpointx, fontColor);
+			svg.appendChild(axis);
 		}
 
 
 		// Render rows
+		var tbodybarchart = document.createElement("tbody");
+		tabbarchart.appendChild(tbodybarchart);
+
 		rowsstacked.forEach(function(rowstacked, key){
+			var tr = document.createElement("tr");
+			tbodybarchart.appendChild(tr);
 			
 			// Render label
 			var labeltd = createElementWithClass("td","label");
@@ -173,31 +180,30 @@ Spotfire.initialize(async (mod) => {
 			percentagetd.textContent = Number((maxvaluerowstacked + minvaluerowstacked) / total * 100).toFixed(0) + " %";
 			
 			// Append table row with label, value and bar
-			var tr = document.createElement("tr");
 			tr.appendChild(labeltd);
 			tr.appendChild(valuetd);
 			tr.appendChild(percentagetd);
 			tr.appendChild(bartd);
-			tabbarchart.appendChild(tr);
-			
 		});
 
 
 		// Render footer with axis in case of negative values
 		if ( minvalue < 0 ){
-			var headertd = createElementWithClass("td","bar");
-			var headersvg = createElementSvgWithClass("svg","headersvg");
-			headertd.appendChild(headersvg);
-			
-			var axis = createAxisSvg(nullpointx, fontColor);
-			headersvg.appendChild(axis);
-
+			var tfootbarchart = document.createElement("tfoot");
+			tabbarchart.appendChild(tfootbarchart);
 			var tr = document.createElement("tr");
+			tfootbarchart.appendChild(tr);
+			
 			tr.appendChild(createElementWithClass("td","label"));
 			tr.appendChild(createElementWithClass("td","value"));
 			tr.appendChild(createElementWithClass("td","percentage"));
-			tr.appendChild(headertd);
-			tabbarchart.appendChild(tr);
+
+			var td = createElementWithClass("td","bar");
+			tr.appendChild(td);
+			var svg = createElementSvgWithClass("svg","headersvg");
+			td.appendChild(svg);
+			var axis = createAxisSvg(nullpointx, fontColor);
+			svg.appendChild(axis);
 		}
 
 
