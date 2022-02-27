@@ -22,6 +22,11 @@ td.value{
 	text-align: right;
 }
 
+td.percentage{
+	white-space: nowrap; 
+	text-align: right;
+}
+
 td.bar{
 	width: 100%;
 	min-width: 50px;
