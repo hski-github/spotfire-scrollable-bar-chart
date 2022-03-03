@@ -6,26 +6,29 @@ This difference in layout concept compared to standard bar chart ensures, that l
 
 [![ScreenShot](/screenshots/screenshot-scrollable-vs-standard-bar-chart_thumbnail.png?raw=true)](/screenshots/screenshot-scrollable-vs-standard-bar-chart.png?raw=true)
 
+Scrollable bar chart can be configured to show also value and percentage. Also sorting by value is possible. 
+
+<img src="https://github.com/hski-github/spotfire-scrollable-bar-chart/blob/sorting/screenshots/screenshot-configuration-options.png?raw=true" width="70%">
+
 Scrollable Bar Chart is released under the [MIT License](LICENSE). All source code for the mod can be found in the `src` folder.
 
 ## To Do's
 
-- Full support for marking incl. highlighting border, click on category and rectangle selection
-- Support for sorting by value or label
-- Support for tool tip
-- Show total
-- Show value and/or percentage per row
+- Marking by click on category
+- Marking by rectangle selection
+- Tooltip incl. highlighting border
+- Show total value
 
 ## Known Limitations 
 
 As of now, but planning to enhance the visualization mod in this direction
 
 - Hierarchy shown as category axis
-- Vertical bar chart
 - Horizontal scale axis
 
 Not planned to be supported by this visualization mod
 
+- No vertical bar chart
 - No support for error bars (currently no plan to enhance the mod in this direction)
 - No 100% bars
 - No i18n of title, axis labels and description

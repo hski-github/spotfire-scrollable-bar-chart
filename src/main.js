@@ -8,7 +8,7 @@ Spotfire.initialize(async (mod) => {
      */
     const reader = mod.createReader(
 		mod.visualization.data(), mod.windowSize(), 
-		mod.property("showPercentage"), mod.property("showValue")
+		mod.property("showPercentage"), mod.property("showValue"), mod.property("sortByValue")
 	);
 
     /**
@@ -26,7 +26,7 @@ Spotfire.initialize(async (mod) => {
      * @param {Spotfire.Size} windowSize
      * @param {Spotfire.ModProperty<string>} prop
      */
-    async function render(dataView, windowSize, showPercentage, showValue) {
+    async function render(dataView, windowSize, showPercentage, showValue, sortByValue) {
 
         // Check the data view for errors
         let errors = await dataView.getErrors();
@@ -101,24 +101,31 @@ Spotfire.initialize(async (mod) => {
 		
 		// Render header with axis in case of negative values
 		if ( minvalue < 0 ){
-			var headertd = createElementWithClass("td","bar");
-			var headersvg = createElementSvgWithClass("svg","headersvg");
-			headertd.appendChild(headersvg);
-
-			var axis = createAxisSvg(nullpointx, fontColor);
-			headersvg.appendChild(axis);
-
+			var theadbarchart = document.createElement("thead");
+			tabbarchart.appendChild(theadbarchart);
 			var tr = document.createElement("tr");
+			theadbarchart.appendChild(tr);
+			
 			tr.appendChild(createElementWithClass("td","label"));
 			tr.appendChild(createElementWithClass("td","value"));
 			tr.appendChild(createElementWithClass("td","percentage"));
-			tr.appendChild(headertd);
-			tabbarchart.appendChild(tr);
+
+			var td = createElementWithClass("td","bar");
+			tr.appendChild(td);
+			var svg = createElementSvgWithClass("svg","headersvg");
+			td.appendChild(svg);
+			var axis = createAxisSvg(nullpointx, fontColor);
+			svg.appendChild(axis);
 		}
 
 
 		// Render rows
+		var tbodybarchart = document.createElement("tbody");
+		tabbarchart.appendChild(tbodybarchart);
+
 		rowsstacked.forEach(function(rowstacked, key){
+			var tr = document.createElement("tr");
+			tbodybarchart.appendChild(tr);
 			
 			// Render label
 			var labeltd = createElementWithClass("td","label");
@@ -173,42 +180,41 @@ Spotfire.initialize(async (mod) => {
 			percentagetd.textContent = Number((maxvaluerowstacked + minvaluerowstacked) / total * 100).toFixed(0) + " %";
 			
 			// Append table row with label, value and bar
-			var tr = document.createElement("tr");
 			tr.appendChild(labeltd);
 			tr.appendChild(valuetd);
 			tr.appendChild(percentagetd);
 			tr.appendChild(bartd);
-			tabbarchart.appendChild(tr);
-			
 		});
 
 
 		// Render footer with axis in case of negative values
 		if ( minvalue < 0 ){
-			var headertd = createElementWithClass("td","bar");
-			var headersvg = createElementSvgWithClass("svg","headersvg");
-			headertd.appendChild(headersvg);
-			
-			var axis = createAxisSvg(nullpointx, fontColor);
-			headersvg.appendChild(axis);
-
+			var tfootbarchart = document.createElement("tfoot");
+			tabbarchart.appendChild(tfootbarchart);
 			var tr = document.createElement("tr");
+			tfootbarchart.appendChild(tr);
+			
 			tr.appendChild(createElementWithClass("td","label"));
 			tr.appendChild(createElementWithClass("td","value"));
 			tr.appendChild(createElementWithClass("td","percentage"));
-			tr.appendChild(headertd);
-			tabbarchart.appendChild(tr);
+
+			var td = createElementWithClass("td","bar");
+			tr.appendChild(td);
+			var svg = createElementSvgWithClass("svg","headersvg");
+			td.appendChild(svg);
+			var axis = createAxisSvg(nullpointx, fontColor);
+			svg.appendChild(axis);
 		}
 
 
 		// Show label and percentage as defined per property
-		if ( showValue = false ){
+		if ( !showValue.value() ){
 			var allvaluetds = document.querySelectorAll(".value");
 			allvaluetds.forEach( function( valuetd ){
 				valuetd.setAttribute("style", "display: none;"); 
 			});
 		}
-		if ( showPercentage = false ){
+		if ( !showPercentage.value() ){
 			var allvaluetds = document.querySelectorAll(".percentage");
 			allvaluetds.forEach( function( valuetd ){
 				valuetd.setAttribute("style", "display: none;"); 
@@ -216,7 +222,20 @@ Spotfire.initialize(async (mod) => {
 		}
 		
 
-		// Marking
+		// Sort by value as defined per property
+		if ( sortByValue.value() ){
+			const tbody = document.querySelector('tbody');
+			Array.from(tbody.querySelectorAll('tr'))
+				.sort(function(tra, trb){
+					const valuea = Number(tra.getElementsByClassName("value")[0].textContent);
+					const valueb = Number(trb.getElementsByClassName("value")[0].textContent);
+					return valueb - valuea;
+				})
+				.forEach(tr => tbody.appendChild(tr) );
+		}
+
+
+		// Marking 
 		var allbarrects = document.querySelectorAll(".barsvg rect");
 		allbarrects.forEach( function(onebarrect){
 			onebarrect.onclick = function ( event ){
@@ -235,15 +254,60 @@ Spotfire.initialize(async (mod) => {
 		});
 
 
-		// Clear marking
+		// Clear marking 
 		var allbarsvgs = document.querySelectorAll(".barsvg");
 		allbarsvgs.forEach( function(onebarsvg){
 			onebarsvg.onclick = function ( event ) {
 				if (!event.shiftKey) dataView.clearMarking();
+				event.stopPropagation();
 			};		
 		});
 
-				
+
+		// Popout content
+		const { popout } = mod.controls;
+		const { section } = popout;
+		const { checkbox } = popout.components;
+		
+		const popoutContent = () => [
+			section({ 
+				children: [
+					checkbox({ text: "Show percentage", checked: showPercentage.value(), enabled: true, name: "showPercentage" }),
+					checkbox({ text: "Show value", checked: showValue.value(), enabled: true, name : "showValue" }),
+					checkbox({ text: "Sort by value", checked: sortByValue.value(), enabled: true, name : "sortByValue" })
+				] 
+			})
+		];
+
+        // Popout change handler
+        function popoutChangeHandler({ name, value }) {
+            if (name == showPercentage.name) showPercentage.set(value);
+            if (name == showValue.name) showValue.set(value);
+            if (name == sortByValue.name) sortByValue.set(value);
+        }
+
+		// Popout configuration
+		function showPopout(e) {
+			popout.show(
+				{
+					x: e.x,
+					y: e.y,
+					autoClose: true,
+					alignment: "Left",
+					onChange: popoutChangeHandler
+				},
+				popoutContent
+			);
+		}
+
+		// Popout event onclick
+		tabbarchart.onclick = function ( event ) {
+			x = event.clientX;
+			y = event.clientY;
+			showPopout({ x, y });
+		};	
+
+
         // Signal that the mod is ready for export.
         context.signalRenderComplete();
     }
