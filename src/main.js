@@ -235,7 +235,7 @@ Spotfire.initialize(async (mod) => {
 		}
 
 
-		// Marking
+		// Marking 
 		var allbarrects = document.querySelectorAll(".barsvg rect");
 		allbarrects.forEach( function(onebarrect){
 			onebarrect.onclick = function ( event ){
@@ -254,15 +254,60 @@ Spotfire.initialize(async (mod) => {
 		});
 
 
-		// Clear marking
+		// Clear marking 
 		var allbarsvgs = document.querySelectorAll(".barsvg");
 		allbarsvgs.forEach( function(onebarsvg){
 			onebarsvg.onclick = function ( event ) {
 				if (!event.shiftKey) dataView.clearMarking();
+				event.stopPropagation();
 			};		
 		});
 
-				
+
+		// Popout content
+		const { popout } = mod.controls;
+		const { section } = popout;
+		const { checkbox } = popout.components;
+		
+		const popoutContent = () => [
+			section({ 
+				children: [
+					checkbox({ text: "Show percentage", checked: showPercentage.value(), enabled: true, name: "showPercentage" }),
+					checkbox({ text: "Show value", checked: showValue.value(), enabled: true, name : "showValue" }),
+					checkbox({ text: "Sort by value", checked: sortByValue.value(), enabled: true, name : "sortByValue" })
+				] 
+			})
+		];
+
+        // Popout change handler
+        function popoutChangeHandler({ name, value }) {
+            if (name == showPercentage.name) showPercentage.set(value);
+            if (name == showValue.name) showValue.set(value);
+            if (name == sortByValue.name) sortByValue.set(value);
+        }
+
+		// Popout configuration
+		function showPopout(e) {
+			popout.show(
+				{
+					x: e.x,
+					y: e.y,
+					autoClose: true,
+					alignment: "Left",
+					onChange: popoutChangeHandler
+				},
+				popoutContent
+			);
+		}
+
+		// Popout event onclick
+		tabbarchart.onclick = function ( event ) {
+			x = event.clientX;
+			y = event.clientY;
+			showPopout({ x, y });
+		};	
+
+
         // Signal that the mod is ready for export.
         context.signalRenderComplete();
     }
