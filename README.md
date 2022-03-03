@@ -8,7 +8,7 @@ This difference in layout concept compared to standard bar chart ensures, that l
 
 Scrollable bar chart can be configured to show also value and percentage. Also sorting by value is possible. 
 
-<img src="https://github.com/hski-github/spotfire-scrollable-bar-chart/blob/sorting/screenshots/screenshot-configuration-options.png?raw=true" width="70%">
+<img src="https://github.com/hski-github/spotfire-scrollable-bar-chart/blob/main/screenshot/screenshot-configuration-options.png?raw=true" width="70%">
 
 Scrollable Bar Chart is released under the [MIT License](LICENSE). All source code for the mod can be found in the `src` folder.
 
