@@ -6,6 +6,10 @@ This difference in layout concept compared to standard bar chart ensures, that l
 
 [![ScreenShot](/screenshots/screenshot-scrollable-vs-standard-bar-chart_thumbnail.png?raw=true)](/screenshots/screenshot-scrollable-vs-standard-bar-chart.png?raw=true)
 
+Scrollable bar chart can be configured to show also value and percentage. Also sorting by value is possible. 
+
+[![ScreenShot](/screenshots/screenshot-configuration-options.png?raw=true)](/screenshots/screenshot-configuration-options?raw=true)
+
 Scrollable Bar Chart is released under the [MIT License](LICENSE). All source code for the mod can be found in the `src` folder.
 
 ## To Do's
