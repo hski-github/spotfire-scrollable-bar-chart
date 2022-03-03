@@ -4,7 +4,7 @@ This is a Spotfire mod project to create a horizontal bar chart, which adds a sc
 
 This difference in layout concept compared to standard bar chart ensures, that labels of the bars are allways visible, readable in standard font size and without ellipsis. 
 
-<img src="https://github.com/hski-github/spotfire-scrollable-bar-chart/blob/main/screenshots/screenshot-scrollable-vs-standard-bar-chart.png?raw=true" width="70%">
+<img src="https://github.com/hski-github/spotfire-scrollable-bar-chart/blob/main/screenshots/screenshot-scrollable-vs-standard-bar-chart.png?raw=true" width="100%">
 
 Scrollable bar chart can be configured to show also value and percentage next to the category label. Also sorting by value is possible. 
 
