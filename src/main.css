@@ -3,6 +3,7 @@ body{
 }
 
 table#tabularbarchart{
+	cursor: pointer;
 	user-select: none;
 	overflow: auto;
 	border-collapse: collapse;
@@ -28,6 +29,7 @@ td.percentage{
 }
 
 td.bar{
+	cursor: default;
 	width: 100%;
 	min-width: 50px;
 }
